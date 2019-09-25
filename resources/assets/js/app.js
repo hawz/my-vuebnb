@@ -1,22 +1,41 @@
+import Vue from 'vue';
+import { populateAmenitiesAndPrices } from './helpers'
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+let model = window.vuebnb_listing_model;
+model = populateAmenitiesAndPrices(model);
+console.log(model);
 
-require('./bootstrap');
-
-window.Vue = require('vue');
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
-
-const app = new Vue({
-  el: '#app'
+var app = new Vue({
+  el: '#app',
+  data: {
+    ...model,
+    isContracted: true,
+    headerImageStyle: {
+      'background-image': `url(${model.images[0]})`
+    },
+    modalOpen: false
+  },
+  methods: {
+    escapeKeyListener(event) {
+      if (event.keyCode === 27 && this.modalOpen) {
+        this.modalOpen = false;
+      }
+    }
+  },
+  watch: {
+    modalOpen(newVal) {
+      const className = 'modal-open';
+      if (newVal) {
+        document.body.classList.add(className);
+      } else {
+        document.body.classList.remove(className);
+      }
+    }
+  },
+  created() {
+    document.addEventListener('keyup', this.escapeKeyListener);
+  },
+  destroyed() {
+    document.removeEventListener('keyup', this.escapeKeyListener);
+  }
 });
