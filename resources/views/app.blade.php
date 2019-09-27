@@ -62,7 +62,7 @@
     <div class="modal" :class="{ show: modalOpen }">
       <button class="modal-close" @click="modalOpen = false">&times;</button>
       <div class="modal-content">
-        <img :src="images[0]">
+        <image-carousel></image-carousel>
       </div>
     </div>
   </div>
