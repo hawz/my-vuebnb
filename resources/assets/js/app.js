@@ -9,20 +9,27 @@ Vue.component('image-carousel', {
     <div class="image-carousel">
       <img :src="image">
       <div class="controls">
-        <carousel-control></carousel-control>
-        <carousel-control></carousel-control>
+        <carousel-control dir="left" @change-image="changeImage"></carousel-control>
+        <carousel-control dir="right" @change-image="changeImage"></carousel-control>
       </div>
     </div>
   `,
+  props: ['images'],
   data() {
     return {
-      images: [
-        '/images/1/Image_1.jpg',
-        '/images/1/Image_2.jpg',
-        '/images/1/Image_3.jpg',
-        '/images/1/Image_4.jpg'
-      ],
       index: 0
+    }
+  },
+  methods: {
+    changeImage(val) {
+      const newIndex = this.index + parseInt(val);
+      if (newIndex < 0) {
+        this.index = this.images.length - 1;
+      } else if (newIndex === this.images.length) {
+        this.index = 0;
+      } else {
+        this.index = newIndex;
+      }
     }
   },
   computed: {
@@ -32,10 +39,21 @@ Vue.component('image-carousel', {
   },
   components: {
     'carousel-control': {
-      template: `<i class="carousel-control fa fa-2x fa-chevron-left"></i>`
+      props: ['dir'],
+      template: `<i :class="classes" @click="clicked"></i>`,
+      methods: {
+        clicked() {
+          this.$emit('change-image', this.dir === 'left' ? -1 : 1);
+        }
+      },
+      computed: {
+        classes() {
+          return `carousel-control fa fa-2x fa-chevron-${this.dir}`
+        }
+      }
     }
   }
-})
+});
 
 var app = new Vue({
   el: '#app',
