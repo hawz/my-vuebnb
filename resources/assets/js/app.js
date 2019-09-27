@@ -1,62 +1,16 @@
 import Vue from 'vue';
 import { populateAmenitiesAndPrices } from './helpers'
+import ImageCarousel from './components/ImageCarousel';
 
 let model = window.vuebnb_listing_model;
 model = populateAmenitiesAndPrices(model);
 
-Vue.component('image-carousel', {
-  template: `
-    <div class="image-carousel">
-      <img :src="image">
-      <div class="controls">
-        <carousel-control dir="left" @change-image="changeImage"></carousel-control>
-        <carousel-control dir="right" @change-image="changeImage"></carousel-control>
-      </div>
-    </div>
-  `,
-  props: ['images'],
-  data() {
-    return {
-      index: 0
-    }
-  },
-  methods: {
-    changeImage(val) {
-      const newIndex = this.index + parseInt(val);
-      if (newIndex < 0) {
-        this.index = this.images.length - 1;
-      } else if (newIndex === this.images.length) {
-        this.index = 0;
-      } else {
-        this.index = newIndex;
-      }
-    }
-  },
-  computed: {
-    image() {
-      return this.images[this.index];
-    }
-  },
-  components: {
-    'carousel-control': {
-      props: ['dir'],
-      template: `<i :class="classes" @click="clicked"></i>`,
-      methods: {
-        clicked() {
-          this.$emit('change-image', this.dir === 'left' ? -1 : 1);
-        }
-      },
-      computed: {
-        classes() {
-          return `carousel-control fa fa-2x fa-chevron-${this.dir}`
-        }
-      }
-    }
-  }
-});
-
-var app = new Vue({
+// My main vue instance, mounted on the div#app
+new Vue({
   el: '#app',
+  components: {
+    ImageCarousel
+  },
   data: {
     ...model,
     isContracted: true,
