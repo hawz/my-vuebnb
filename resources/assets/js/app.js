@@ -1,6 +1,9 @@
 import Vue from 'vue';
 import { populateAmenitiesAndPrices } from './helpers'
 import ImageCarousel from './components/ImageCarousel';
+import ModalWindow from './components/ModalWindow';
+import HeaderImage from './components/HeaderImage';
+import FeatureList from './components/FeatureList';
 
 let model = window.vuebnb_listing_model;
 model = populateAmenitiesAndPrices(model);
@@ -9,37 +12,18 @@ model = populateAmenitiesAndPrices(model);
 new Vue({
   el: '#app',
   components: {
-    ImageCarousel
+    ImageCarousel,
+    ModalWindow,
+    HeaderImage,
+    FeatureList
   },
   data: {
     ...model,
-    isContracted: true,
-    headerImageStyle: {
-      'background-image': `url(${model.images[0]})`
-    },
-    modalOpen: false
+    isContracted: true
   },
   methods: {
-    escapeKeyListener(event) {
-      if (event.keyCode === 27 && this.modalOpen) {
-        this.modalOpen = false;
-      }
+    openModal() {
+      this.$refs.imagemodal.modalOpen = true;
     }
-  },
-  watch: {
-    modalOpen(newVal) {
-      const className = 'modal-open';
-      if (newVal) {
-        document.body.classList.add(className);
-      } else {
-        document.body.classList.remove(className);
-      }
-    }
-  },
-  created() {
-    document.addEventListener('keyup', this.escapeKeyListener);
-  },
-  destroyed() {
-    document.removeEventListener('keyup', this.escapeKeyListener);
   }
 });
