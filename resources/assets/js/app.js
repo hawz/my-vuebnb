@@ -1,8 +1,12 @@
 import Vue from 'vue';
-import ListingPage from './components/ListingPage';
+
+import router from './router';
+
+import App from './components/App';
 
 // My main vue instance, mounted on the div#app
 new Vue({
   el: '#app',
-  render: h => h(ListingPage)
+  render: h => h(App),
+  router
 });
