@@ -7,7 +7,7 @@
           <span>{{listing.price_per_night}}</span>
           <span>{{listing.title}}</span>
         </div>
-        <div class="info address">{{listing.address}}</div>
+        <div class="info address">{{listing.address}}, {{listing.city}}, {{listing.country}}</div>
       </div>
     </router-link>
     <listing-save :id="listing.id"></listing-save>
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import ListingSave from './ListingSave';
+import ListingSave from "./ListingSave";
 export default {
   props: ["listing"],
   computed: {

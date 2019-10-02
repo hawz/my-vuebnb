@@ -18,6 +18,8 @@ let populateAmenitiesAndPrices = function(state) {
     id: state.id,
     title: state.title,
     address: state.address,
+    city: state.city,
+    country: state.country,
     about: state.about,
     amenities: [],
     prices: [],
@@ -51,7 +53,7 @@ export { populateAmenitiesAndPrices };
 let groupByCountry = function (listings) {
   if (!listings) return {};
   return listings.reduce(function (rv, x) {
-    let key = ['Taiwan', 'Poland', 'Cuba'].find(country => x.address.indexOf(country) > -1);
+    let key = ['Taiwan', 'Poland', 'Cuba'].find(country => x.country.indexOf(country) > -1);
     if (!rv[key]) {
       rv[key] = [];
     }

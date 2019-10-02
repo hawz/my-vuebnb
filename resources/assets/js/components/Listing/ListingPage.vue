@@ -4,7 +4,7 @@
     <div class="container">
       <div class="heading">
         <h1>{{ listing.title }}</h1>
-        <p>{{ listing.address }}</p>
+        <p>{{ listing.address }} - {{ listing.city }}, {{listing.country}}</p>
       </div>
       <hr />
       <div class="about">

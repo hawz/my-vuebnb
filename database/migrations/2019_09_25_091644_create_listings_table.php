@@ -17,8 +17,12 @@ class CreateListingsTable extends Migration
             $table->primary('id');
             $table->unsignedInteger('id');
             $table->string('title');
-            $table->string('address');
             $table->longText('about');
+            $table->string('address');
+            $table->string('city');
+            $table->string('country');
+            $table->string('zipcode');
+            $table->timestamps();
 
             // Amenities
             $table->boolean('amenity_wifi')->default(false);
