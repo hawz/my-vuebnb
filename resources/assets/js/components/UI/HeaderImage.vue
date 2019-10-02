@@ -1,18 +1,23 @@
 <template>
   <div class="header">
     <div class="header-img" :style="headerImageStyle" @click="$emit('header-clicked')">
+      <listing-save :id="id" :button="true"></listing-save>
       <button class="view-photos">View Photos</button>
     </div>
   </div>
 </template>
 
 <script>
+import ListingSave from "../Listing/ListingSave";
 export default {
-  props: ["image-url"],
+  props: ["image-url", "id"],
   computed: {
     headerImageStyle() {
       return { "background-image": `url(${this.imageUrl})` };
     }
+  },
+  components: {
+    ListingSave
   }
 };
 </script>

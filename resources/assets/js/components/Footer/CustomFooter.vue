@@ -16,7 +16,6 @@
 export default {
   computed: {
     containerClass() {
-      console.log(this.$route)
       // 'listing-container' or 'home-container'
       return `${this.$route.name}-container`;
     }
