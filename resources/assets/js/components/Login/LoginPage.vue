@@ -19,7 +19,7 @@
 export default {
   data() {
     return {
-      csrf_token: window.csrf_token
+      csrf_token: document.head.querySelector('meta[name="csrf-token"]').content
     }
   }
 };

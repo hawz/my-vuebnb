@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import axios from 'axios';
+import axios from './axios-instance';
 import store from './store';
 
 import HomePage from './components/Home/HomePage';
@@ -35,6 +35,7 @@ router.beforeEach((to, from, next) => {
     })
   } else {
     store.commit('addData', { route: to.name, data: serverData });
+    serverData.saved.forEach(id => store.commit('toggleSaved', id));
     next();
   }
 })

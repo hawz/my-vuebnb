@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import router from './router';
+import axios from './axios-instance';
 
 import { groupByCountry } from './helpers';
 
@@ -40,6 +41,17 @@ export default new Vuex.Store({
         state.listings.push(data.listing);
       } else {
         state.listing_summaries = data.listings;
+      }
+    }
+  },
+  actions: {
+    toggleSaved({ commit, state }, id) {
+      if (state.auth) {
+        axios.post('/api/user/toggle_saved', { id })
+          .then(() => commit('toggleSaved', id))
+          .catch(error => console.error(error.message));
+      } else {
+        router.push('/login');
       }
     }
   }
