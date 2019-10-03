@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Listing;
+use Illuminate\Support\Facades\Auth;
 
 class ListingController extends Controller
 {
 
-  private function get_listing($listing) 
+  private function get_listing($listing)
   {
     $model = $listing->toArray();
     for ($i = 1; $i <= 4; $i++) {
@@ -20,11 +21,12 @@ class ListingController extends Controller
   private function add_meta_data($collection, $request)
   {
     return $collection->merge([
-      'path' => $request->getPathInfo()
+      'path' => $request->getPathInfo(),
+      'auth' => Auth::check()
     ]);
   }
 
-  private function get_listing_summaries() 
+  private function get_listing_summaries()
   {
     $collection = Listing::all([
       'id', 'address', 'city', 'country', 'zipcode', 'title', 'price_per_night'
@@ -54,7 +56,7 @@ class ListingController extends Controller
     return view('app', ['data' => $data]);
   }
 
-  public function get_home_api() 
+  public function get_home_api()
   {
     $data = $this->get_listing_summaries();
     return response()->json($data);

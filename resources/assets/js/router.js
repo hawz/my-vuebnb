@@ -26,7 +26,7 @@ let router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   let serverData = window.vuebnb_server_data;
-  if (to.name === 'listing' ? store.getters.getListing(to.params.listing) : store.state.listing_summaries.length > 0 || to.name === 'login') {
+  if (to.name === 'listing' ? store.getters.listing(to.params.listing) : store.state.listing_summaries.length > 0 || to.name === 'login') {
     next();
   } else if (!serverData.path || to.path !== serverData.path) {
     axios.get(`/api${to.path}`).then(({ data }) => {

@@ -2,7 +2,7 @@
   <div class="home-container">
     <listing-summary-group
       class="listing-summary-group"
-      v-for="(listings, country) in listing_groups"
+      v-for="(listings, country) in home_listings"
       :key="country"
       :country="country"
       :listings="listings"
@@ -13,15 +13,13 @@
 <script>
 import axios from "axios";
 
-import { groupByCountry } from "../../helpers";
+import { mapGetters } from "vuex";
 import ListingSummaryGroup from "../Listing/ListingSummaryGroup";
 
 export default {
   components: { ListingSummaryGroup },
   computed: {
-    listing_groups() {
-      return groupByCountry(this.$store.state.listing_summaries);
-    }
+    ...mapGetters(['home_listings'])
   }
 };
 </script>

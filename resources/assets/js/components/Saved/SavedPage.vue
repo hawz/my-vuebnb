@@ -9,12 +9,13 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import ListingSummary from "../Listing/ListingSummary";
 export default {
   computed: {
-    listings() {
-      return this.$store.getters.getSavedSummaries
-    }
+    ...mapGetters({
+      listings: 'savedSummaries'
+    })
   },
   components: {
     ListingSummary

@@ -1,6 +1,11 @@
 <template>
   <div>
-    <header-image v-if="listing.images[0]" :image-url="listing.images[0]" @header-clicked="openModal" :id="listing.id"></header-image>
+    <header-image
+      v-if="listing.images[0]"
+      :image-url="listing.images[0]"
+      @header-clicked="openModal"
+      :id="listing.id"
+    ></header-image>
     <div class="container">
       <div class="heading">
         <h1>{{ listing.title }}</h1>
@@ -49,9 +54,10 @@ export default {
     ExpandableText
   },
   computed: {
+    // ...mapGetters(['listing'])
     listing() {
       return populateAmenitiesAndPrices(
-        this.$store.getters.getListing(this.$route.params.listing)
+        this.$store.getters.listing(+this.$route.params.listing)
       )
     }
   },
